@@ -1,0 +1,18 @@
+program: main.py
+method: grid
+project: DMTNML
+name: sweepACT_repeat10
+parameters:
+  config:
+    values: ['conf_new/nml7/ACT.yaml']
+  model.p3:
+    values: [0]
+  seed_everything:
+    values: [1,2,3,4,5,6,7,8,9,10]
+command:
+  - ${env}
+  - ${interpreter}
+  - ${program}
+  - fit
+  - ${args}
+

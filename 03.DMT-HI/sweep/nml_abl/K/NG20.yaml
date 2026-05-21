@@ -1,0 +1,24 @@
+program: main.py
+method: grid
+project: DMTNML
+name: sweepNG20K
+parameters:
+  config:
+    values: ['conf_new/nml3/NG20.yaml']
+  model.nu_lat:
+    values: [0.08]
+  model.nu_lat:
+    values: [0.08]
+  model.exaggeration_lat:
+    values: [3]
+  model.exaggeration_emb:
+    values: [3]
+  data.init_args.K:
+    values: [2,3,4,5,6,7,8,9]
+command:
+  - ${env}
+  - ${interpreter}
+  - ${program}
+  - fit
+  - ${args}
+

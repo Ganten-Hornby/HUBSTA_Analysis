@@ -1,0 +1,23 @@
+program: main.py
+method: grid
+project: DMTNML
+name: tsne_mnist
+metric:
+  goal: maximize
+  name: val2
+parameters:
+  config:
+    values: ['baseline/conf_new/tsne_mnist.yaml']
+  model.p1:
+    values: [0,1]
+  model.p2:
+    values: [0,1,2,3,4]
+  model.p3: 
+    values: [1]
+command:
+  - ${env}
+  - ${interpreter}
+  - ${program}
+  - fit
+  - ${args}
+

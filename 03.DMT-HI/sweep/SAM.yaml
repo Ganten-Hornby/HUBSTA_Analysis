@@ -1,0 +1,35 @@
+program: main.py
+method: bayes
+project: DMTNML
+name: sweepSAM
+metric:
+  goal: maximize
+  name: SVC_val
+parameters:
+  config:
+    values: ['conf_new/tras_cond_sum_pacmap_multimask.yaml']
+  model.init_args.weight_mse:
+    min: 0.1
+    max: 15.0
+  model.init_args.weight_nepo:
+    min: 0.1
+    max: 15.0
+  model.lr:
+    min: 0.0001
+    max: 0.010
+  model.sample_rate_feature:
+    min: 0.01
+    max: 0.30
+  model.tau:
+    min: 1.01
+    max: 5.0
+  model.T_num_layers:
+    min: 2
+    max: 4
+command:
+  - ${env}
+  - ${interpreter}
+  - ${program}
+  - fit
+  - ${args}
+

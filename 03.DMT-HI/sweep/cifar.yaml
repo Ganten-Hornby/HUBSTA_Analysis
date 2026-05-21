@@ -1,0 +1,34 @@
+program: main.py
+method: bayes
+project: DMTNML
+name: sweepcifar
+metric:
+  goal: maximize
+  name: SVC_val
+parameters:
+  config:
+    values: ['conf_new/nml/tras_cond_cifar10_pacmap_multimask_orth_4gpu_newloss.yaml']
+  model.exaggeration_lat:
+    values: [0.02, 0.05, 0.1]
+  model.exaggeration_emb:
+    values: [1.5, 2, 3, 4]
+  model.lr:
+    values: [0.0001, 0.0002, 0.0005, 0.001, ]
+  model.nu_lat:
+    values: [0.2, 0.5, 1.0]
+  model.nu_emb:
+    values: [0.2, 0.5, 1.0]  
+  trainer.max_epochs:
+    values: [100,]
+  trainer.devices:
+    values: [1,]
+  trainer.enable_progress_bar:
+    values: [False]
+
+command:
+  - ${env}
+  - ${interpreter}
+  - ${program}
+  - fit
+  - ${args}
+

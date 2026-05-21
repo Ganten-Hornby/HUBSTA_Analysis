@@ -1,0 +1,30 @@
+command:
+- ${env}
+- ${interpreter}
+- ${program}
+- fit
+- ${args}
+method: grid
+metric:
+  goal: maximize
+  name: val1
+name: evnetkmnist_repeat7
+parameters:
+  config:
+    values:
+    - baseline/conf_new/tmp/evnetkmnistconfig.yaml
+  model.p1:
+    values:
+    - 0
+    - 1
+    - 2
+    - 3
+  model.p2:
+    values:
+    - 0
+    - 1
+    - 2
+    - 3
+    - 4
+program: main.py
+project: DMTNML

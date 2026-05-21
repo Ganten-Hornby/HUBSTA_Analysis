@@ -1,0 +1,13 @@
+seed_everything: 42
+
+data:
+  class_path: data_model.datamodel_tri_test.MyDataModule
+  init_args:
+    data_name: Cifar10Vector
+    pca_dim: 64
+    batch_size: 651404000
+    num_workers: 15
+    K: 3 # 3, 5, 7
+    n_f_per_cluster: 3
+    l_token: 10
+    data_path: /zangzelin/data

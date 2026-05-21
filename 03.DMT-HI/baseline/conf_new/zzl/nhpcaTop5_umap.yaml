@@ -1,0 +1,38 @@
+data:
+  class_path: data_model.datamodel_tri_test.MyDataModule
+  init_args:
+    K: 5
+    batch_size: 6051404
+    data_name: nhpcaTOP5
+    data_path: /storage/zangzelin/data
+    l_token: 10
+    n_f_per_cluster: 3
+    num_workers: 1
+    pca_dim: 128
+model:
+  class_path: model.baseline_tri.DMTEVT_model
+  init_args:
+    method: _umap
+    min_dist: 30
+    n_neighbors: 10
+    num_input_dim: 64
+seed_everything: 42
+trainer:
+  accelerator: gpu
+  callbacks:
+  - class_path: call_backs.EvalAcc_high_low_emb_bio.EvalCallBack
+    init_args:
+      dataset: mnist
+      dirpath: zzl_checkpoints/
+      fully_eval: true
+      inter: 1
+  check_val_every_n_epoch: 1
+  devices: 1
+  enable_checkpointing: false
+  logger:
+    class_path: lightning.pytorch.loggers.WandbLogger
+    init_args:
+      name: test
+      project: DMTNML
+      save_dir: wandb
+  max_epochs: 1

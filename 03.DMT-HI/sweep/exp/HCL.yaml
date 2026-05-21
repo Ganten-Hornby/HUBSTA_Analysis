@@ -1,0 +1,28 @@
+program: main.py
+method: grid
+project: DMTNML
+name: sweep_exp_HCL
+parameters:
+  config:
+    values: ['conf_new/exp/HCL_best_0.3.yaml']
+  model.nu_lat:
+    values: [0.001, 0.01, 0.1, 0.2 ]
+  model.nu_emb:
+    values: [0.001, 0.01, 0.1, 0.2 ]
+  model.T_num_layers:
+    values: [6,8,10]
+  data.batch_size:
+    values: [1000]
+  data.K:
+    values: [3, 5, 10]
+  model.max_epochs:
+    values: [1000]
+  trainer.max_epochs:
+    values: [1000]
+command:
+  - ${env}
+  - ${interpreter}
+  - ${program}
+  - fit
+  - ${args}
+

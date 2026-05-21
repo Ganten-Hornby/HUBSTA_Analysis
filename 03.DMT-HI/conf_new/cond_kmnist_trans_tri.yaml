@@ -1,0 +1,58 @@
+seed_everything: 42
+
+data:
+  class_path: data_model.datamodel_tri_test.MyDataModule
+  init_args:
+    data_name: KMnist
+    pca_dim: 64
+    batch_size: 875
+    num_workers: 5
+    K: 3
+    n_f_per_cluster: 3
+    l_token: 10
+    data_path: /zangzelin/data
+
+model:
+  class_path: model.tran_nnet_exp_cond_pacmap_mutimask_multi_test.DMTEVT_model
+  init_args:
+    num_input_dim: 784
+    sigma: 0.05
+    lr: 0.005
+    w_nb: 1
+    w_fp: 1
+    weight_mse: 5
+    weight_nepo: 1
+    sample_rate_feature: 0.1
+    T_num_layers: 3
+    T_num_attention_heads: 14
+    T_hidden_size: 784
+    T_intermediate_size: 300
+    T_hidden_dropout_prob: 0.0
+    T_attention_probs_dropout_prob: 0.0
+  
+trainer:
+  logger:
+    class_path: lightning.pytorch.loggers.WandbLogger
+    init_args:
+      name: test
+      project: DMTNML
+      save_dir: wandb
+  callbacks:
+    - class_path: call_backs.EvalAcc.EvalCallBack
+      init_args:
+        inter: 10
+    - class_path: call_backs.Logtau.LogTauCallBack
+      init_args:
+        inter: 10
+  max_epochs: 2000
+  devices: 8
+  accelerator: gpu
+  check_val_every_n_epoch: 500
+  strategy: deepspeed
+  # precision: 16
+  enable_checkpointing: True
+  # enable_progress_bar: False
+# trainer.strategy: ddp_find_unused_parameters_true
+# trainer.strategy: ddp
+
+# --config=conf_new/cond_mnist.yaml --data.init_args.K=3 --model.init_args.weight_mse=5 --model.init_args.weight_nepo=5 --model.lr=0.0005 --model.sample_rate_feature=0.8 --model.sigma=0.05 --model.tau=50 --trainer.enable_progress_bar=False

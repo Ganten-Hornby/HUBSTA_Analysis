@@ -1,0 +1,32 @@
+program: main.py
+method: bayes
+project: DMTNML
+name: sweepMnist
+metric:
+  goal: maximize
+  name: val2
+parameters:
+  config:
+    values: ['conf_new/cond_Mnist_trans_tri.yaml']
+  model.init_args.weight_mse:
+    min: 0.1
+    max: 10.0
+  model.init_args.weight_nepo:
+    min: 0.1
+    max: 10.0
+  model.lr:
+    min: 0.0005
+    max: 0.010
+  model.sample_rate_feature:
+    min: 0.01
+    max: 0.30
+  model.tau:
+    values: [5]
+  data.init_args.K:
+    values: [3,5,7]
+command:
+  - ${env}
+  - ${interpreter}
+  - ${program}
+  - fit
+  - ${args}

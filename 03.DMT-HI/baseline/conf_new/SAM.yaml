@@ -1,0 +1,12 @@
+seed_everything: 42
+data:
+  class_path: data_model.datamodel.MyDataModule
+  init_args:
+    data_name: SAMUSIK
+    pca_dim: 38
+    batch_size: 651404
+    num_workers: 5
+    K: 3
+    n_f_per_cluster: 3
+    l_token: 10
+    data_path: /zangzelin/data

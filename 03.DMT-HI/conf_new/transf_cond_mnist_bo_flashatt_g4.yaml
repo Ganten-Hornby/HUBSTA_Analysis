@@ -1,0 +1,59 @@
+seed_everything: 42
+
+data:
+  class_path: data_model.datamodel.MySEQDataModule
+  init_args:
+    data_name: Mnist
+    pca_dim: 64
+    batch_size: 600
+    num_workers: 6
+    K: 5
+    n_f_per_cluster: 3
+    l_token: 10
+    data_path: /zangzelin/data
+
+model:
+  class_path: model.tran_exp_cond_no_flashatt.DMTEVT_model
+  init_args:
+    num_input_dim: 784
+    seq_len: 784
+    sigma: 0.5
+    lr: 0.005
+    top_k_2: 600
+    top_k_1: 3
+    weight_mse: 10
+    weight_nepo: 20
+    sample_rate_feature: 0.7
+    tau: 2
+    T_num_layers: 2
+    T_num_attention_heads: 6
+    T_hidden_size: 64
+    T_intermediate_size: 300
+
+trainer:
+  logger:
+    class_path: lightning.pytorch.loggers.WandbLogger
+    init_args:
+      name: test
+      project: DMTNML
+      save_dir: wandb
+  callbacks:
+    - class_path: call_backs.EvalAcc.EvalCallBack
+      init_args:
+        inter: 10
+    - class_path: call_backs.MaskExp.MaskExpCallBack
+      init_args:
+        inter: 10
+    - class_path: call_backs.Logtau.LogTauCallBack
+      init_args:
+        inter: 10
+  max_epochs: 400
+  devices: 6
+  accelerator: gpu
+  check_val_every_n_epoch: 50
+  strategy: 'deepspeed'
+  precision: 16
+  enable_checkpointing: False
+  # enable_progress_bar: False
+# trainer.strategy: ddp_find_unused_parameters_true
+# trainer.strategy: ddp

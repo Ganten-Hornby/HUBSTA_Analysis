@@ -1,0 +1,19 @@
+program: main.py
+method: grid
+project: DMTNML
+name: sweep
+metric:
+  goal: maximize
+  name: SVC_val
+parameters:
+  config:
+    values: ['conf_new/tras_cond_mnist_pacmap_multimask_orth.yaml']
+  model.init_args.sample_rate_feature:
+    values: [0.02, 0.05, 0.1, 0.2, 0.3]
+command:
+  - ${env}
+  - ${interpreter}
+  - ${program}
+  - fit
+  - ${args}
+

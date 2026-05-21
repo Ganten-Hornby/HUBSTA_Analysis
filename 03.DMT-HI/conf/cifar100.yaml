@@ -1,0 +1,41 @@
+seed_everything: 42
+data:
+  batch_size: 500
+  num_workers: 4
+  data_name: Cifar100
+  K: 5
+  pca_dim: 784
+  n_f_per_cluster: 3
+  l_token: 4
+  data_path: /zangzelin/data
+model:
+  l_token: 50
+  num_input_dim: 784
+  num_layers_Transformer: 2
+  l_token_2: 512
+  nu: 0.1
+  transformer2_indim: 3072
+  lr: 0.001
+trainer:
+  logger:
+    class_path: lightning.pytorch.loggers.WandbLogger
+    init_args:
+      name: test
+      project: DMTEVT
+      save_dir: wandb
+  callbacks:
+    - class_path: lightning.pytorch.callbacks.ModelCheckpoint
+      init_args:
+        monitor: SVC_train
+        dirpath: ./checkpoints
+        filename: cifar100-{epoch:03d}-{SVC_train:.5f}
+        save_top_k: 5
+        mode: max
+  max_epochs: 4000
+  devices: [0]
+  accelerator: gpu
+  check_val_every_n_epoch: 50
+  enable_checkpointing: True
+  enable_progress_bar: True
+# trainer.strategy: ddp_find_unused_parameters_true
+# trainer.strategy: ddp

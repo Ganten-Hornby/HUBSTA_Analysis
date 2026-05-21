@@ -1,0 +1,43 @@
+program: main.py
+method: grid
+project: DMTNML
+name: sweep
+metric:
+  goal: maximize
+  name: SVC_val
+parameters:
+  config:
+    values: ['conf_new/tras_cond_mnist_pacmap.yaml']
+  model.init_args.T_num_layers:
+    values: [2,]
+  model.T_num_attention_heads:
+    values: [7, 14, 28]
+  model.T_hidden_size:
+    values: [784]
+  model.T_intermediate_size:
+    values: [300, 600]
+  model.T_hidden_dropout_prob:
+    values: [0.0]
+  model.T_attention_probs_dropout_prob:
+    values: [0.0]
+  model.lr:
+    values: [0.005, 0.01, 0.02, ]
+  data.init_args.batch_size:
+    values: [2000,]
+  model.init_args.weight_mse:
+    values: [1]
+  model.init_args.w_nb:
+    values: [1]
+  model.init_args.w_fp:
+    values: [1]
+  model.init_args.weight_nepo:
+    values: [1]
+  data.init_args.K:
+    values: [3,5,7,9]
+command:
+  - ${env}
+  - ${interpreter}
+  - ${program}
+  - fit
+  - ${args}
+

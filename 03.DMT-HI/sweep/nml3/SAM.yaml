@@ -1,0 +1,20 @@
+program: main.py
+method: grid
+project: DMTNML
+name: sweepACT
+parameters:
+  config:
+    values: ['conf_new/nml4/SAM.yaml']
+  model.p3:
+    values: [1]
+  model.p1:
+    values: [0,1,2,3]
+  model.p2:
+    values: [0,1,2,3,4]
+command:
+  - ${env}
+  - ${interpreter}
+  - ${program}
+  - fit
+  - ${args}
+

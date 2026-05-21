@@ -1,0 +1,23 @@
+program: main.py
+method: grid
+project: DMTNML
+name: sweepHCL_baseline
+metric:
+  goal: maximize
+  name: SVC_val
+parameters:
+  config:
+    values: ['baseline/conf_new/zzl/nhpca_umap.yaml', 'baseline/conf_new/zzl/nhpca_tsne.yaml']
+  data.data_name:
+    values: [
+      'nhpca10k', 'nhpca20k', 'nhpca40k', 'nhpca80k', 
+      'nhpca160k', 'nhpca320k', 'nhpca640k', 'nhpca', 
+      ]
+command:
+  - ${env}
+  - ${interpreter}
+  - ${program}
+  - fit
+  - ${args}
+
+# --data.K=15 --data.batch_size=3000 --model.T_hidden_size=2048 --model.T_num_layers=2 --model.nu_emb=0.1 --model.nu_lat=0.02

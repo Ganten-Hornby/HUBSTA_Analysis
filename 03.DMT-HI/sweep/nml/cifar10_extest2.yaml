@@ -1,0 +1,29 @@
+program: main.py
+method: grid
+project: DMTNML
+name: sweepcifar10ex
+metric:
+  goal: maximize
+  name: val1
+parameters:
+  config:
+    values: ['conf_new/nml/cifar10_extest.yaml']
+  model.exaggeration_lat:
+    values: [2]
+  model.exaggeration_emb:
+    values: [2]
+  model.nu_lat:
+    values: [0.5]
+  model.nu_emb:
+    values: [0.5]
+  model.lr:
+    values: [0.005]
+  model.emb_lat_w:
+    values: [0.0,0.5,1.0]
+command:
+  - ${env}
+  - ${interpreter}
+  - ${program}
+  - fit
+  - ${args}
+

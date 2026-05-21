@@ -1,0 +1,31 @@
+program: main.py
+method: grid
+project: DMTNML
+name: sweepHCLex_tail2mix
+metric:
+  goal: maximize
+  name: val1
+parameters:
+  config:
+    values: ['conf_new/nml/HCL_extest3.yaml']
+  model.exaggeration_lat:
+    values: [2.224029777151284]
+  model.exaggeration_emb:
+    values: [3.1110503938508667]
+  model.nu_lat:
+    values: [0.3594406097688676]
+  model.nu_emb:
+    values: [0.8652509240431407]
+  model.lr:
+    values: [0.004665661002256284]
+  model.weight_tail_begin:
+    values: [1.0]
+  model.weight_tail_end:
+    values: [0.5]
+command:
+  - ${env}
+  - ${interpreter}
+  - ${program}
+  - fit
+  - ${args}
+

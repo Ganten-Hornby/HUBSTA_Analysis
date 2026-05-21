@@ -1,0 +1,58 @@
+seed_everything: 42
+
+data:
+  class_path: data_model.datamodel_tri_test.MyDataModule
+  init_args:
+    data_name: Cifar10
+    pca_dim: 64
+    batch_size: 250
+    num_workers: 10
+    K: 3 # 3, 5, 7
+    n_f_per_cluster: 3
+    l_token: 10
+    data_path: /zangzelin/data
+
+model:
+  class_path: model.nnet_new_exp.DMTEVT_model
+  # class_path: model.nnet_nnet_exp_cond_pacmap_mutimask_orth_new.DMTEVT_model
+  init_args:
+    num_input_dim: 3072
+    lr: 0.001 # 0.001, 0.005, 0.01
+    exaggeration_lat: 1
+    exaggeration_emb: 1
+    nu_lat: 1.0
+    nu_emb: 1.0
+    T_hidden_size: 512
+    weight_decay: 0.000000001
+    max_epochs: 100
+    sample_rate_feature: 1.0
+    emb_lat_w: 0.5
+  
+trainer:
+  logger:
+    class_path: lightning.pytorch.loggers.WandbLogger
+    init_args:
+      name: test
+      project: DMTNML
+      save_dir: wandb
+      # host: http://www.zangzelin.fun:4080
+      # key: local-04561b3685afca039aca56f554efe6a008118c01'
+  callbacks:
+    - class_path: call_backs.EvalAcc_high_low_emb_cifar.EvalCallBack
+      init_args:
+        inter: 10
+        dirpath: 'zzl_checkpoints/'
+        dataset: 'cifar'
+    # - class_path: call_backs.MaskExp.MaskExpCallBack
+    #   init_args:
+    #     inter: 10
+  # max_steps: 1440000
+  max_epochs: 100
+  devices: 1
+  accelerator: gpu
+  # strategy: deepspeed
+  check_val_every_n_epoch: 10
+  enable_checkpointing: True
+  # enable_progress_bar: False
+# trainer.strategy: ddp_find_unused_parameters_true
+# trainer.strategy: ddp

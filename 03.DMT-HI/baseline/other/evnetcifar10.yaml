@@ -1,0 +1,31 @@
+command:
+- ${env}
+- ${interpreter}
+- ${program}
+- fit
+- ${args}
+method: grid
+metric:
+  goal: maximize
+  name: val1
+name: evnetcifar10_repeat10
+parameters:
+  config:
+    values:
+    - baseline/conf_new/tmp/evnetcifar10config.yaml
+  model.p1:
+    values:
+    - 0
+    - 1
+  model.p2:
+    values:
+    - 0
+    - 1
+    - 2
+    - 3
+    - 4
+  model.p3:
+    values:
+    - 1
+program: main.py
+project: DMTNML

@@ -1,0 +1,26 @@
+program: main.py
+method: grid
+project: DMTNML
+name: sweepEMnist
+parameters:
+  config:
+    values: ['conf_new/nml4/emnist.yaml']
+  model.p3:
+    values: [1]
+  # model.p1:
+  #   values: [0,1,2,3]
+  # model.p2:
+  #   values: [0,1,2,3,4]
+  exaggeration_lat:
+    values: [1.5,2.0,3.0,4.0]
+  exaggeration_emb:
+    values: [1.5,2.0,3.0,4.0]
+
+
+command:
+  - ${env}
+  - ${interpreter}
+  - ${program}
+  - fit
+  - ${args}
+

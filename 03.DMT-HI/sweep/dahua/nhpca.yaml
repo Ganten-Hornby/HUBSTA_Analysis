@@ -1,0 +1,25 @@
+program: main.py
+method: grid
+project: DMTNML
+name: sweepHCL
+metric:
+  goal: maximize
+  name: SVC_val
+parameters:
+  config:
+    values: ['conf_new/huada/nhpca_v1.yaml']
+  data.K:
+    values: [3, 5, 10, 15]
+  model.nu_lat:
+    values: [0.5, 1.0, 2.0]
+  model.nu_emb:
+    values: [0.5, 1.0, 2.0]
+  model.T_num_layers:
+    values: [4, 6, 8]
+command:
+  - ${env}  
+  - ${interpreter}
+  - ${program}
+  - fit
+  - ${args}
+

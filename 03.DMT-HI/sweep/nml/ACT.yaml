@@ -1,0 +1,41 @@
+program: main.py
+method: bayes
+project: DMTNML
+name: sweepMCA
+metric:
+  goal: maximize
+  name: train_svc
+parameters:
+  config:
+    values: ['conf_new/nml/ACT.yaml']
+  model.sample_rate_feature:
+    min: 0.05
+    max: 0.95
+  model.exaggeration_lat:
+    min: 0.5
+    max: 5.0
+  model.exaggeration_emb:
+    min: 0.5
+    max: 5.0
+  model.nu_lat:
+    min: 0.01
+    max: 1.0
+  model.nu_emb:
+    min: 0.01
+    max: 1.0
+  model.lr:
+    min: 0.0001
+    max: 0.010
+  model.T_hidden_size:
+    values: [512,1024,2048]
+  model.num_use_moe: 
+    values: [1,3,5,7,10]
+  model.T_num_layers:
+    values: [3,4,5,6] 
+command:
+  - ${env}
+  - ${interpreter}
+  - ${program}
+  - fit
+  - ${args}
+

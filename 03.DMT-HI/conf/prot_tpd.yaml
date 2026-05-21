@@ -1,0 +1,48 @@
+seed_everything: 42
+data:
+  batch_size: 400
+  num_workers: 4
+  data_name: ProtTPD
+  K: 5
+  pca_dim: 50
+  n_f_per_cluster: 3
+  l_token: 10
+  sample_len: 500
+  data_path: ./data/
+  uselabel: True
+model:
+  uselabel: True
+  w: 1
+  loss_rec_weight: 10.0
+  l_token: 50
+  sample_len: 500
+  num_input_dim: 1215
+  num_layers_Transformer: 2
+  l_token_2: 50
+  nu: 0.1
+  trans_embedding_size: 64
+  num_attention_heads: 6
+trainer:
+  logger:
+    class_path: lightning.pytorch.loggers.WandbLogger
+    init_args:
+      name: test
+      project: DMTEVT
+      save_dir: wandb
+  # callbacks:
+  #   - class_path: lightning.pytorch.callbacks.ModelCheckpoint
+  #     init_args:
+  #       monitor: SVC_train
+  #       dirpath: ./checkpoints
+  #       filename: mnist-best-{epoch:03d}-{SVC_train:.5f}
+  #       save_top_k: 2
+  #       mode: max
+  max_epochs: 60000
+  # devices: [0]
+  accelerator: gpu
+  check_val_every_n_epoch: 1000
+  enable_checkpointing: True
+  sync_batchnorm: True
+  enable_progress_bar: False
+trainer.strategy: deepspeed
+# trainer.strategy: ddp

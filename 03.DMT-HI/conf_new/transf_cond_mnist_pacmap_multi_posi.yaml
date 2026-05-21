@@ -1,0 +1,63 @@
+seed_everything: 42
+
+data:
+  class_path: data_model.datamodel.MySEQDataModule
+  init_args:
+    data_name: Mnist
+    pca_dim: 64
+    batch_size: 2000
+    num_workers: 6
+    K: 5
+    n_f_per_cluster: 3
+    l_token: 10
+    data_path: /zangzelin/data
+    num_positive_samples: 1
+
+model:
+  class_path: model.tran_exp_pacmap_notrans_multi_posi.DMTEVT_model
+  init_args:
+    num_input_dim: 784
+    seq_len: 784
+    sigma: 0.5
+    lr: 0.0005
+    w_nb: 6
+    w_fp: 2
+    weight_mse: 0
+    weight_nepo: 1
+    sample_rate_feature: 1.0
+    tau: 20
+    T_num_layers: 3
+    T_num_attention_heads: 14
+    T_hidden_size: 784
+    T_intermediate_size: 300
+    T_hidden_dropout_prob: 0.0
+    T_attention_probs_dropout_prob: 0.0
+
+trainer:
+  logger:
+    class_path: lightning.pytorch.loggers.WandbLogger
+    init_args:
+      name: test
+      project: DMTNML
+      save_dir: wandb
+  callbacks:
+    - class_path: call_backs.EvalAcc.EvalCallBack
+      init_args:
+        inter: 10
+    - class_path: call_backs.MaskExp.MaskExpCallBack
+      init_args:
+        inter: 10
+    - class_path: call_backs.Logtau.LogTauCallBack
+      init_args:
+        inter: 10
+    - class_path: lightning.pytorch.callbacks.ModelCheckpoint
+      init_args:
+        dirpath: 'zzl_checkpoints/'  
+        filename: 'mnist-{epoch:05d}'  
+        every_n_epochs: 50 
+  max_epochs: 600
+  devices: 1
+  accelerator: gpu
+  check_val_every_n_epoch: 250
+  strategy: 'deepspeed'
+  precision: 16

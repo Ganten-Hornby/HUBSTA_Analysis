@@ -1,0 +1,25 @@
+program: main.py
+method: grid
+project: DMTNML
+name: sweepKMnist
+metric:
+  goal: maximize
+  name: val2
+parameters:
+  config:
+    values: ['conf_new/test.yaml']
+  model.init_args.weight_mse:
+    values: [1,2]
+  model.init_args.weight_nepo:
+    values: [1,2]
+  model.lr:
+    values: [0.001,0.002,0.0005,0.004]
+  model.sample_rate_feature:
+    values: [0.10,0.20]
+command:
+  - ${env}
+  - ${interpreter}
+  - ${program}
+  - fit
+  - ${args}
+

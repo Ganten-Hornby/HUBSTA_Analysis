@@ -1,0 +1,32 @@
+program: main.py
+method: bayes
+project: DMTNML
+name: sweepHCL
+metric:
+  goal: maximize
+  name: SVC_val
+parameters:
+  config:
+    values: ['conf_new/nml/cond_HCL_newloss.yaml']
+  model.exaggeration_lat:
+    min: 0.5
+    max: 5.0
+  model.exaggeration_emb:
+    min: 0.5
+    max: 5.0
+  model.nu_lat:
+    min: 0.01
+    max: 1.0
+  model.nu_emb:
+    min: 0.01
+    max: 1.0
+  model.lr:
+    min: 0.0001
+    max: 0.010
+command:
+  - ${env}
+  - ${interpreter}
+  - ${program}
+  - fit
+  - ${args}
+

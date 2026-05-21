@@ -1,0 +1,39 @@
+seed_everything: 42
+data:
+  batch_size: 500
+  num_workers: 4
+  data_name: Coil100
+  K: 5
+  pca_dim: 16384
+  n_f_per_cluster: 3
+  l_token: 10
+  data_path: /zangzelin/data
+model:
+  l_token: 50
+  num_input_dim: 16384
+  num_layers_Transformer: 2
+  l_token_2: 50
+  nu: 0.01
+trainer:
+  logger:
+    class_path: lightning.pytorch.loggers.WandbLogger
+    init_args:
+      name: test
+      project: DMTEVT
+      save_dir: wandb
+  callbacks:
+    - class_path: lightning.pytorch.callbacks.ModelCheckpoint
+      init_args:
+        monitor: SVC_train
+        dirpath: ./checkpoints
+        filename: coil100-{epoch:03d}-{SVC_train:.5f}
+        save_top_k: 5
+        mode: max
+  max_epochs: 400
+  devices: [0]
+  accelerator: gpu
+  check_val_every_n_epoch: 200
+  enable_checkpointing: True
+  enable_progress_bar: False
+# trainer.strategy: ddp_find_unused_parameters_true
+# trainer.strategy: ddp

@@ -1,0 +1,40 @@
+seed_everything: 42
+data:
+  data_name: Must_ME95_
+  pca_dim: 64
+  batch_size: 1000
+  num_workers: 4
+  K: 5
+  n_f_per_cluster: 3
+  l_token: 10
+  data_path: /zangzelin/data
+model:
+  num_input_dim: 72
+  transformer2_indim: 2350
+  l_token: 50
+  num_layers_Transformer: 2
+  l_token_2: 50
+  nu: 0.01
+trainer:
+  logger:
+    class_path: lightning.pytorch.loggers.WandbLogger
+    init_args:
+      name: test
+      project: DMTEVT
+      save_dir: wandb
+  callbacks:
+    - class_path: lightning.pytorch.callbacks.ModelCheckpoint
+      init_args:
+        monitor: SVC_train
+        dirpath: ./checkpoints
+        filename: best-{epoch:03d}-{SVC_train:.5f}
+        save_top_k: 5
+        mode: max
+  max_epochs: 500
+  devices: [0]
+  accelerator: gpu
+  check_val_every_n_epoch: 50
+  enable_checkpointing: True
+  enable_progress_bar: False
+# trainer.strategy: ddp_find_unused_parameters_true
+# trainer.strategy: ddp

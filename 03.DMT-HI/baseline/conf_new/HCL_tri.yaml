@@ -1,0 +1,13 @@
+seed_everything: 42
+
+data:
+  class_path: data_model.datamodel_tri_test.MyDataModule
+  init_args:
+    data_name: HCL60K
+    pca_dim: 128
+    batch_size: 651404
+    num_workers: 1
+    K: 5
+    n_f_per_cluster: 3
+    l_token: 10
+    data_path: /zangzelin/data

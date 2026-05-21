@@ -1,0 +1,39 @@
+program: main.py
+method: grid
+project: DMTHI
+name: sweepcifar
+metric:
+  goal: maximize
+  name: SVC_val
+parameters:
+  config:
+    values: ['conf_new/nml/tras_cond_cifar100_pacmap_multimask_orth_4gpu_newloss.yaml']
+  model.exaggeration_lat:
+    values: [0.05, 0.1, 0.2, 0.3]
+  model.exaggeration_emb:
+    values: [1, 2, 3]
+  model.lr:
+    values: [0.0005,]
+  model.nu_lat:
+    values: [1.0, 2.0, ]
+  model.nu_emb:
+    values: [1.0, 2.0,]
+  model.emb_lat_w:
+    values: [0.03, 0.05, 0.1, 0.2, ]
+  data.batch_size:
+    # values: [250, 500, 1000]
+    values: [500]
+  trainer.max_epochs:
+    values: [1000]
+  trainer.devices:
+    values: [1,]
+  trainer.enable_progress_bar:
+    values: [False]
+
+command:
+  - ${env}
+  - ${interpreter}
+  - ${program}
+  - fit
+  - ${args}
+

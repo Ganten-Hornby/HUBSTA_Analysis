@@ -1,0 +1,40 @@
+seed_everything: 42
+data:
+  data_name: Digits
+  pca_dim: 64
+  batch_size: 500
+  num_workers: 4
+  K: 5
+  n_f_per_cluster: 3
+  l_token: 10
+  data_path: /zangzelin/data
+model:
+  num_input_dim: 64
+  transformer2_indim: 2050
+  l_token: 50
+  num_layers_Transformer: 6
+  l_token_2: 50
+  nu: 0.001
+trainer:
+  logger:
+    class_path: lightning.pytorch.loggers.WandbLogger
+    init_args:
+      name: test
+      project: DMTEVT
+      save_dir: wandb
+  # callbacks:
+  #   - class_path: lightning.pytorch.callbacks.ModelCheckpoint
+  #     init_args:
+  #       monitor: SVC_train
+  #       dirpath: ./checkpoints
+  #       filename: best-{epoch:03d}-{SVC_train:.5f}
+  #       save_top_k: 5
+  #       mode: max
+  max_epochs: 5000
+  devices: [0]
+  accelerator: gpu
+  check_val_every_n_epoch: 200
+  enable_checkpointing: True
+  # enable_progress_bar: False
+# trainer.strategy: ddp_find_unused_parameters_true
+# trainer.strategy: ddp

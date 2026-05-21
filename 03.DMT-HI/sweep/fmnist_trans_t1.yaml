@@ -1,0 +1,41 @@
+program: main.py
+method: bayes
+project: DMTNML
+name: sweepS2
+metric:
+  goal: maximize
+  name: SVC_val
+parameters:
+  config:
+    values: ['conf_new/cond_fmnist_trans.yaml']
+  model.init_args.weight_mse:
+    min: 0.1
+    max: 5.0
+  model.init_args.weight_nepo:
+    min: 0.1
+    max: 10.0
+  model.lr:
+    min: 0.001
+    max: 0.005
+  model.sample_rate_feature:
+    min: 0.05
+    max: 0.15
+  model.tau:
+    min: 1
+    max: 5
+  model.T_num_layers:
+    min: 2
+    max: 4
+  model.T_num_attention_heads:
+    values: [7, 14, 28]
+  model.T_intermediate_size:
+    values: [200,300,400]
+  trainer.enable_progress_bar: 
+    values: [False]
+command:
+  - ${env}
+  - ${interpreter}
+  - ${program}
+  - fit
+  - ${args}
+

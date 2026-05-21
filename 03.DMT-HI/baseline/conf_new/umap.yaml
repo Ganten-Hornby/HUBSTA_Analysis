@@ -1,0 +1,31 @@
+model:
+  class_path: model.baseline.DMTEVT_model
+  init_args:
+    num_input_dim: 64
+    method: 'umap'
+    n_neighbors: 10
+    min_dist: 30
+trainer:
+  logger:
+    class_path: lightning.pytorch.loggers.WandbLogger
+    init_args:
+      name: test
+      project: DMTNML
+      save_dir: wandb
+  callbacks:
+    - class_path: call_backs.EvalAcc_high_low_emb_baseline.EvalCallBack
+      init_args:
+        inter: 1
+        dirpath: 'zzl_checkpoints/'
+        dataset: 'mnist'
+    # - class_path: call_backs.MaskExp.MaskExpCallBack
+    #   init_args:
+    #     inter: 100
+  max_epochs: 1
+  devices: 1
+  accelerator: gpu
+  check_val_every_n_epoch: 1
+  enable_checkpointing: False
+  # enable_progress_bar: False
+# trainer.strategy: ddp_find_unused_parameters_true
+# trainer.strategy: ddp

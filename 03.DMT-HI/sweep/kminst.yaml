@@ -1,0 +1,31 @@
+program: main.py
+method: grid
+project: DMTNML
+name: sweepKMnist
+metric:
+  goal: maximize
+  name: SVC_val
+parameters:
+  config:
+    values: ['conf_new/test.yaml']
+  model.init_args.weight_mse:
+    values: [2.9677268022041]
+  model.init_args.weight_nepo:
+    values: [1.21156528991515]
+  model.lr:
+    values: [0.00287893640237977]
+  model.sample_rate_feature:
+    values: [0.0718522695227734]
+  model.tau:
+    values: [2]
+  data.init_args.K:
+    values: [1,2,3,4,5,6,7,8]
+  trainer.enable_progress_bar: 
+    values: [False]
+command:
+  - ${env}
+  - ${interpreter}
+  - ${program}
+  - fit
+  - ${args}
+

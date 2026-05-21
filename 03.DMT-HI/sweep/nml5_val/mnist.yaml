@@ -1,0 +1,24 @@
+program: main.py
+method: grid
+project: DMTNML
+name: sweepmnist_repeat7
+parameters:
+  config:
+    values: ['conf_new/nml4/mnist.yaml']
+  model.p3:
+    values: [5]
+  model.p1:
+    values: [0,1,2,3]
+  model.p2:
+    values: [0,1,2,3,4]
+  model.save_model:
+    values: [True]
+  trainer.max_epoch:
+    values: [1]
+command:
+  - ${env}
+  - ${interpreter}
+  - ${program}
+  - validate
+  - ${args}
+

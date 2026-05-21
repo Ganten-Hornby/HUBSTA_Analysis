@@ -1,0 +1,22 @@
+program: main.py
+method: grid
+project: DMTNML
+name: sweepmnistnu
+parameters:
+  config:
+    values: ['conf_new/nml4/mnist.yaml']
+  model.p3:
+    values: [0]
+  model.nu_lat:
+    values: [0.001,0.005,0.01,0.05,0.1,0.5,1]
+  model.exaggeration_lat:
+    values: [1.5]
+  model.exaggeration_emb:
+    values: [1.5]
+command:
+  - ${env}
+  - ${interpreter}
+  - ${program}
+  - fit
+  - ${args}
+

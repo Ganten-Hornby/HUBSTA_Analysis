@@ -1,0 +1,26 @@
+program: main.py
+method: bayes
+project: DMTNML
+name: sweepKMnist
+metric:
+  goal: maximize
+  name: val2
+parameters:
+  config:
+    values: ['conf_new/test.yaml']
+  model.init_args.weight_mse:
+    values: [4.4876139053915125]
+  model.init_args.weight_nepo:
+    values: [2.0310460328474087]
+  model.lr:
+    values: [0.0017415653352313909]
+  model.sample_rate_feature:
+    values: [0.04725015864468325]
+command:
+  - ${env}
+  - ${interpreter}
+  - ${program}
+  - fit
+  - ${args}
+n_iter: 50
+
