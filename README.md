@@ -1,8 +1,8 @@
 # HUBSTA_Analysis
 
-> **H**uman **U**nified **B**rain **S**patial **T**ranscriptomic **A**nalysis — Mouse Brain Development Atlas Pipeline
+> **H**uman **U**nified **B**rain **S**patial **T**ranscriptomic **A**nalysis — Human Fetal Brain Development Atlas Pipeline
 
-A comprehensive spatial transcriptomics analysis pipeline for mouse brain development, built on **Stereo-seq** (Spatial Enhanced Resolution Omics-sequencing) data. This repository covers the full workflow from cell segmentation to downstream biological interpretation, including deep learning-based embedding, GPU-accelerated clustering, region-specific DEG analysis, ligand-receptor interaction inference, pseudotime analysis, and 3D visualization.
+A comprehensive spatial transcriptomics analysis pipeline for human fetal brain development, built on **Stereo-seq** (Spatial Enhanced Resolution Omics-sequencing) data. This repository covers the full workflow from cell segmentation to downstream biological interpretation, including deep learning-based embedding, GPU-accelerated clustering, region-specific DEG analysis, ligand-receptor interaction inference, pseudotime analysis, and 3D visualization.
 
 ---
 
