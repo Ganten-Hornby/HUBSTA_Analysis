@@ -1,0 +1,3 @@
+[submodule "09.grn_analysis/SpaGRN"]
+	path = 09.grn_analysis/SpaGRN
+	url = https://github.com/DBinary/SpaGRN.git

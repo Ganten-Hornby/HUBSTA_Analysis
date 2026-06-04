@@ -1,0 +1,33 @@
+.ipynb_checkpoints/
+__pycache__/
+*.py[cod]
+
+# Large biological data files
+*.h5ad
+*.h5
+*.hdf5
+*.rds
+*.loom
+*.zarr/
+
+# Generated analysis outputs
+Process_Data/
+Output/
+Figure/
+figures/
+outputs/
+results/
+tmp_files/
+
+# Local input datasets and resources
+fetal_brain_hongtaoyu/
+fetal_brain_data_ChP/
+GRN_resource/
+
+# Local environment and editor state
+.env
+.venv/
+env/
+venv/
+.DS_Store
+.vscode/
