@@ -2,7 +2,7 @@
 
 > **H**uman **U**nified **B**rain **S**patial **T**ranscriptomic **A**nalysis — Human Fetal Brain Development Atlas Pipeline
 
-A comprehensive spatial transcriptomics analysis pipeline for human fetal brain development, built on **Stereo-seq** (Spatial Enhanced Resolution Omics-sequencing) data. This repository covers the full workflow from cell segmentation to downstream biological interpretation, including deep learning-based embedding, GPU-accelerated clustering, region-specific DEG analysis, ligand-receptor interaction inference, pseudotime analysis, and 3D visualization.
+A comprehensive spatial transcriptomics analysis pipeline for human fetal brain development, built on **Stereo-seq** (Spatial Enhanced Resolution Omics-sequencing) data. This repository covers the full workflow from cell segmentation to downstream biological interpretation, including deep learning-based embedding, GPU-accelerated clustering, region-specific DEG analysis, ligand-receptor interaction inference, spatial GRN inference, pseudotime analysis, and 3D visualization.
 
 ---
 
@@ -14,6 +14,7 @@ A comprehensive spatial transcriptomics analysis pipeline for human fetal brain 
 | **Thalamus** | `06.thalamus_analysis/` | DEG, Ligand-Receptor, Spatial gene plots, Tangram mapping |
 | **Mid-Hindbrain (MHB)** | `07.mhb_analysis/` | DEG, Ligand-Receptor, Tracks plots |
 | **Cerebellum** | `08.cerebellum_analysis/` | DEG, Single-cell annotation, Spatial annotation, Pseudotime, Ligand-Receptor, Circos plots |
+| **Spatial GRN** | `09.grn_analysis/` | GPU SpaGRN submodule, whole-brain and region-specific GRN notebooks, TF/regulon visualization |
 | **Cortex** | `12.3D_ply_plot/` | 3D PLY mesh gene visualization |
 
 ---
@@ -51,6 +52,12 @@ A comprehensive spatial transcriptomics analysis pipeline for human fetal brain 
 │                         │     · Pseudotime trajectory
 │                         │     · Spatial tracks visualization
 │                         │     · Cell type annotation
+└───────────┬─────────────┘
+            │
+            ▼
+┌─────────────────────────┐
+│  09. Spatial GRN        │  ← GPU SpaGRN inference and
+│     Analysis            │     TF/regulon visualization
 └───────────┬─────────────┘
             │
             ▼
@@ -130,6 +137,13 @@ HUBSTA_Analysis/
 │   ├── *circosplot*.ipynb     # Circos plots
 │   └── *.ipynb
 │
+├── 09.grn_analysis/           # Spatial GRN analysis and GPU SpaGRN submodule
+│   ├── SpaGRN/                 # Git submodule: https://github.com/DBinary/SpaGRN
+│   ├── notebooks/              # Fetal brain GRN analysis notebooks
+│   ├── docs/                   # Notebook and output inventories
+│   ├── _3D_plot.py             # K3D 3D expression helper
+│   └── requirements.txt
+│
 ├── 12.3D_ply_plot/            # 3D PLY mesh visualization
 │   ├── 2_mhb_gene_plot_*.py   # MHB 3D gene plot
 │   ├── 3_cortex_gene_plot_*.py # Cortex 3D gene plot
@@ -180,7 +194,13 @@ HUBSTA_Analysis/
 | **Tangram Mapping** | Spatial mapping of cell types |
 | **Circos Plots** | Circos-style visualization of cell-cell interactions |
 
-### 6. 3D Visualization (`12.3D_ply_plot`)
+### 6. Spatial GRN Analysis (`09.grn_analysis`)
+- Fetal brain spatial gene regulatory network analysis notebooks
+- GPU-rewritten SpaGRN inference code included as a git submodule
+- Whole-brain and region-specific TF/regulon summaries
+- GRN pathway, heatmap, and 3D visualization helpers
+
+### 7. 3D Visualization (`12.3D_ply_plot`)
 - 3D mesh (PLY format) rendering of brain regions
 - Gene expression mapped onto 3D brain surfaces
 - Supports Cortex, Thalamus, Mid-Hindbrain, and whole brain
@@ -198,12 +218,14 @@ The pipeline relies on several key Python packages:
 - **FuseMap**: See `02.Fusemap/FuseMap/fusemap_environment.yaml`
 - **DMT-HI**: See `03.DMT-HI/requirements.txt` and `install_env.sh`
 - **Visualization**: `matplotlib`, `seaborn`, `plotly`
+- **GRN inference**: `spagrn`, `pyscenic`, `arboreto`, `omicverse`, `gseapy`, `k3d`
 - **3D**: `open3d`, `trimesh`
 
 For detailed environment setup, refer to:
 - `01.cell_segmentation/readme.md` — Stereopy installation
 - `02.Fusemap/FuseMap/fusemap_environment.yaml` — FuseMap conda environment
 - `03.DMT-HI/readme.md` — DMT-HI environment
+- `09.grn_analysis/requirements.txt` — spatial GRN analysis dependencies
 
 ---
 
@@ -250,7 +272,14 @@ python Ligand-receptor_interaction_inference.py
 jupyter lab 1.ipynb
 ```
 
-### Step 6: 3D Visualization
+### Step 6: Spatial GRN Analysis
+```bash
+git submodule update --init --recursive
+cd 09.grn_analysis
+jupyter lab notebooks/01_bin100_preprocessing_grn/01_03_Bin100_GRN_Inference.ipynb
+```
+
+### Step 7: 3D Visualization
 ```bash
 cd 12.3D_ply_plot
 python 04_brain_gene_plot_20260306.py  # Whole brain 3D gene expression
@@ -265,6 +294,8 @@ The pipeline expects **Stereo-seq** data in `.h5ad` (AnnData) format. Each brain
 - Gene expression matrix
 - DMT latent embeddings (`obsm['X_dmt']`, `obsm['X_dmt_highdim']`)
 - Leiden cluster assignments
+
+The spatial GRN notebooks in `09.grn_analysis/` also expect GRN resources and intermediate AnnData outputs such as `GRN_resource/`, `Process_Data/`, `Output/`, and `Figure/`. Large data and generated outputs are intentionally excluded from the repository.
 
 ---
 
